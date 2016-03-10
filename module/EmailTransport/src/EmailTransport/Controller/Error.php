@@ -25,6 +25,7 @@ class Error
     const MESSAGE_BODY_TEXT_EMPTY   = 18;
     const IP_BLACKLISTED            = 19;
     const SERVICE_INVALID           = 20;
+    const EMAIL_ADDRESS_INVALID     = 21;
 
     private static $description = [
         self::EMAIL_SENT                => 'Email Sent',
@@ -48,6 +49,7 @@ class Error
         self::MESSAGE_BODY_TEXT_EMPTY   => 'Message body TEXT content is empty',
         self::IP_BLACKLISTED            => 'Blacklisted remote IP address',
         self::SERVICE_INVALID           => 'Service ',
+        self::EMAIL_ADDRESS_INVALID     => 'Invalid Email address ',
     ];
 
     public static function getDescription($code)

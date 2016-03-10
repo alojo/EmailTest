@@ -19,9 +19,6 @@ namespace EmailTransport\Controller;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 use Doctrine\ORM\EntityManager;
-use EmailTransport\Entity\Album;
-use EmailTransport\Form\AlbumForm;
-
 
 use swiftmailer\lib\swift_required;
 
@@ -33,8 +30,9 @@ class EmailTransportController extends AbstractActionController
     public function indexAction()
     { 
         //create an object of emailtransport
-        $array = [];
+        $array = ['This is a test email'];
         $emailtransport = new  MailRoom($array);
+        $emailtransport->send(); 
         return new ViewModel(array(
            // 'albums' => $this->getEntityManager()->getRepository('Album\Entity\Album')->findAll(),
         )); 

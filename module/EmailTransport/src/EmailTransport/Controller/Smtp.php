@@ -3,10 +3,15 @@ namespace EmailTransport\Controller;
 
 class Smtp
 {
-	const SMTP_HOST = '10.124.128.220';
+	/*const SMTP_HOST = '10.124.128.220';
 	const SMTP_PORT = '25';
 	const SMTP_USER = '';
-	const SMTP_PASS = '';
+	const SMTP_PASS = '';*/
+    
+    const SMTP_HOST = 'smpt.gmail.com';
+	const SMTP_PORT = '465';
+	const SMTP_USER = 'eliamaliakkl@gmail.com';
+	const SMTP_PASS = 'eliamaliakkal67';
 
 	private $smtpTransport;
 	private $requiredCredentials = array(
@@ -36,6 +41,7 @@ class Smtp
 					->setUsername(self::SMTP_USER)
 					->setPassword(self::SMTP_PASS)
 			);
+           
 		}
 	}
 

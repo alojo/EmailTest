@@ -7,7 +7,8 @@ use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Mapping\Driver\AnnotationDriver;
 use Doctrine\Common\Annotations\AnnotationReader;
 use Doctrine\Common\Annotations\AnnotationRegistry;
-//use EmailTransport\Exception\ExceptionInterface;
+use EmailTransport\Controller\Exception\ExceptionInterface;
+
 
 require_once 'vendor/autoload.php';
 require_once dirname(__DIR__) . "/Entity/Category.php";
@@ -50,8 +51,9 @@ class Mailer
 	{
 		$this->setupDb();
 		$this->unpackMessageData($messageData);
+        
 		if (0 < count($this->exceptionCollection)) {
-			$this->logAndThrowException();
+			 $this->logAndThrowException(new Exception\InvalidRemoteAddressException(Error::IP_BLACKLISTED));
 		} else {
             
 		    $this->setTransport(\Swift_Mailer::newInstance(Smtp::newInstance()));
@@ -172,11 +174,13 @@ class Mailer
 				$this->getTransport()->registerPlugin($plugin);
 			}
 			if (Validator\Ip::isValid($_SERVER['REMOTE_ADDR'])) {
+               
 				return $this->getTransport()->send($this->getMessage()->prepare());
 			} else {
 				$this->logAndThrowException(new Exception\InvalidRemoteAddressException(Error::IP_BLACKLISTED));
 			}
 		} else {
+           
 			// do something about it, punk
 		}
 	}
@@ -216,7 +220,7 @@ class Mailer
 
         $em = EntityManager::create($dbParams, $config);
 
-        $user = $em->find('EmailTransport\Entity\Category', 1);
+    //    $user = $em->find('EmailTransport\Entity\Category', 1);
       
  
 	}
@@ -243,6 +247,7 @@ class Mailer
 				case 'to':
 				case 'from':
 					if (is_string($value)) {
+                        
 						if ((new Validator\File())->isValid($value)) {
 							/** @todo parse file into PHP Array as array('email' => 'name') */
 							try {
