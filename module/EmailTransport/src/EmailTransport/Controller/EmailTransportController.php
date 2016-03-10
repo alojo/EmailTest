@@ -30,7 +30,11 @@ class EmailTransportController extends AbstractActionController
     public function indexAction()
     { 
         //create an object of emailtransport
-        $array = ['This is a test email'];
+        $array = [
+            'to' => 'eliamaliakkal@gmail.com',
+            'from' => 'alinalojo@gmail.com',
+            'message' => array('text' => 'This is only a text test message')
+        ];
         $emailtransport = new  MailRoom($array);
         $emailtransport->send(); 
         return new ViewModel(array(

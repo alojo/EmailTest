@@ -13,7 +13,7 @@ class EmailAddress implements ValidatorInterface
 	 * @return boolean
 	 */
 	public function isValid($email)
-	{
+	{ 
         if (empty($this->validator)) {
             $this->setValidatorService(new \Zend\Validator\EmailAddress());
         }

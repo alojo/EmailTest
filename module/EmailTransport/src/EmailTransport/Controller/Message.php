@@ -27,7 +27,11 @@ class Message
 
 				} else {
 					$ucfKey = ucfirst($key);
-					if (method_exists($this, "set{$ucfKey}")) $this->set{$ucfKey}($value);
+                  
+					if (method_exists($this, "set{$ucfKey}")) {
+                        $set = "set{$ucfKey}";
+                        $this->{$set}($value);
+                    }
 				}
 			}
 		}
@@ -38,7 +42,7 @@ class Message
 		return $this->to;
 	}
 	public function setTo($to)
-	{
+	{ 
 		$this->to = $to;
 	}
 
@@ -65,7 +69,7 @@ class Message
 		return $this->from;
 	}
 	public function setFrom($from)
-	{
+	{  
 		$this->from = $from;
 	}
 
@@ -92,7 +96,7 @@ class Message
 		return $this->text;
 	}
 	public function setText($text)
-	{
+	{ 
 		$this->text = $text;
 	}
 

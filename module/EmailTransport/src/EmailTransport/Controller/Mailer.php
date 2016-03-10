@@ -48,7 +48,7 @@ class Mailer
 	 * @param Array $messageData
 	 */
 	public function __construct($messageData = array())
-	{
+	{ 
 		$this->setupDb();
 		$this->unpackMessageData($messageData);
         
@@ -162,7 +162,7 @@ class Mailer
 	}
 
 	public function addException(ExceptionInterface $e)
-	{
+	{ 
 		array_push($this->exceptionCollection, $e);
 	}
 
@@ -229,7 +229,10 @@ class Mailer
 	{
 		foreach ($data as $key => $value) {
 			$ucfKey = ucfirst($key);
-			if (method_exists($this, "set{$ucfKey}")) $this->set{$ucfKey}($value);
+			if (method_exists($this, "set{$ucfKey}")) {
+                $set = "set{$ucfKey}";
+                $this->{$set}($value);
+            }
 		}
 	}
 
@@ -247,13 +250,12 @@ class Mailer
 				case 'to':
 				case 'from':
 					if (is_string($value)) {
-                        
 						if ((new Validator\File())->isValid($value)) {
 							/** @todo parse file into PHP Array as array('email' => 'name') */
 							try {
 								$value = Helper\File::parse($file);
 							} catch (Exception $e) {
-								$this->addException($e);
+                              $this->addException($e);
 							}
 							$decorations = Helper\Decoration::extract($value);
 						} else if (!(new Validator\EmailAddress())->isValid($value)) {
